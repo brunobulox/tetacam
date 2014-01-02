@@ -4,21 +4,24 @@ import shutil
 import time
 import MySQLdb
 
-db = MySQLdb.connect("localhost","teta","tetacam","tetacam")
-sql = "select phone,userid from contacts where phoneactive=true"
+class AlarmCall:
+	def __init__(self):
+	    db = MySQLdb.connect("localhost","teta","tetacam","tetacam")
+	    sql = "select phone,userid from contacts where phoneactive=true"
+	    cursor = db.cursor()
+	    cursor.execute(sql)
+	    data = cursor.fetchall()
+	    db.close()
 
-cursor = db.cursor()
-
-try:
-	cursor.execute(sql)
-
-	data = cursor.fetchall()
-
-	for row in data:
-#		print("%s" % row[0])
+	    for row in data:
+		print("%s" % row[0])
 		phonenumber = "%s" % row[0]
 		id = "%d" % row[1]
 		t=str(time.time())
+		self._write_call_file(phonenumber,id,t)
+
+	def _write_call_file(self,phonenumber,id,t):
+	#write and move a file for asterisk to pick up to call out with
 		f=open("/tmp/alarm-" + t + id, "w")
 		f.write("Channel: Local/1" + phonenumber + "@outbound-allroutes\n")
 		f.write("Callerid: tetacam\n")
@@ -31,10 +34,13 @@ try:
 		f.close()
 		shutil.move(f.name, '/var/spool/asterisk/outgoing/')
 #		print("moving %s" % phonenumber)
-except:
-	print("Unable to fetch data")
 
-db.close()
+
+try:   
+    AlarmCall()
+except Exception as e:
+        exit('Error: [%s]' % e)
+
 
 
 

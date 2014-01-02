@@ -9,7 +9,7 @@
     ########################################################
     ##
 
-    $tblDemo = new ajaxCRUD("Item", "contacts", "userid", "./ajaxcrud");
+    $tblDemo = new ajaxCRUD("Item", "contacts", "userid", "../");
 
     ##
     ########################################################
@@ -29,11 +29,11 @@
     #the table fields have prefixes; i want to give the heading titles something more meaningful
     $tblDemo->displayAs("name", "Name");
     $tblDemo->displayAs("phone", "Phone");
-    $tblDemo->displayAs("phoneactive", "Is phone active?");
+    $tblDemo->displayAs("phoneactive", "Phone active");
     $tblDemo->displayAs("text", "Text");
-    $tblDemo->displayAs("textactive", "Is text active?");
+    $tblDemo->displayAs("textactive", "Text active");
     $tblDemo->displayAs("email", "Email");
-    $tblDemo->displayAs("emailactive", "Is email active?");
+    $tblDemo->displayAs("emailactive", "Email active");
 	#set the textarea height of the longer field (for editing/adding)
     #http://ajaxcrud.com/api/index.php?id=setTextareaHeight
    // $tblDemo->setTextareaHeight('fldLongField', 150);
@@ -58,7 +58,7 @@
     //$tblDemo->addWhereClause("WHERE (fldField1 = 'test'");
 
     #i can order my table by whatever i want
-    //$tblDemo->addOrderBy("ORDER BY fldField1 ASC");
+    $tblDemo->addOrderBy("ORDER BY name ASC");
 
     #i can set certain fields to only allow certain values
     #http://ajaxcrud.com/api/index.php?id=defineAllowableValues
@@ -77,7 +77,7 @@
     #i can disallow adding rows to the table
     #http://ajaxcrud.com/api/index.php?id=disallowAdd
     //$tblDemo->disallowAdd();
-
+    //$tblDemo->setOrientation("vertical");
     #i can add a button that performs some action deleting of rows for the entire table
     #http://ajaxcrud.com/api/index.php?id=addButtonToRow
     //$tblDemo->addButtonToRow("Add", "add_item.php", "all");
@@ -97,7 +97,7 @@
 	#i can format the data in cells however I want with formatFieldWithFunction
 	#this is arguably one of the most important (visual) functions
 	//$tblDemo->formatFieldWithFunction('fldField1', 'makeBlue');
-	//$tblDemo->formatFieldWithFunction('fldField2', 'makeBold');
+	$tblDemo->formatFieldWithFunction('name', 'makeBold');
 
 	//$tblDemo->modifyFieldWithClass("fldField1", "zip required"); 	//for testing masked input functionality
 	//$tblDemo->modifyFieldWithClass("fldField2", "phone");			//for testing masked input functionality
