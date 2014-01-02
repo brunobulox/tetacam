@@ -6,7 +6,7 @@ import MySQLdb
 
 class AlarmCall:
 	def __init__(self):
-	    db = MySQLdb.connect("localhost","USER","PASSWORD","DATABASE")
+	    db = MySQLdb.connect("localhost","teta","tetacam","tetacam")
 	    sql = "select phone,userid from contacts where phoneactive=true"
 	    cursor = db.cursor()
 	    cursor.execute(sql)
@@ -14,7 +14,7 @@ class AlarmCall:
 	    db.close()
 
 	    for row in data:
-		print("%s" % row[0])
+#		print("%s" % row[0])
 		phonenumber = "%s" % row[0]
 		id = "%d" % row[1]
 		t=str(time.time())
@@ -26,8 +26,8 @@ class AlarmCall:
 		f.write("Channel: Local/1" + phonenumber + "@outbound-allroutes\n")
 		f.write("Callerid: tetacam\n")
 		f.write("MaxRetries: 3\n")
-		f.write("RetryTime: 10\n")
-		f.write("WaitTime: 30\n")
+		f.write("RetryTime: 30\n")
+		f.write("WaitTime: 20\n")
 		f.write("Context: motion-alarm\n")
 		f.write("Extension: s\n")
 		f.write("Priority: 1\n")
