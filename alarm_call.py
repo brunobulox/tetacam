@@ -6,7 +6,7 @@ import MySQLdb
 
 class AlarmCall:
 	def __init__(self):
-	    db = MySQLdb.connect("localhost","teta","tetacam","tetacam")
+	    db = MySQLdb.connect("localhost","USER","PASSWORD","DATABASE")
 	    sql = "select phone,userid from contacts where phoneactive=true"
 	    cursor = db.cursor()
 	    cursor.execute(sql)
