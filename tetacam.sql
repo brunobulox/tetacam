@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2014 at 09:47 AM
+-- Generation Time: Jan 02, 2014 at 02:11 PM
 -- Server version: 5.5.33
 -- PHP Version: 5.4.4-14+deb7u7
 
@@ -52,6 +52,23 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   PRIMARY KEY (`userid`),
   UNIQUE KEY `text` (`text`,`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `motion_log`
+--
+
+CREATE TABLE IF NOT EXISTS `motion_log` (
+  `event_number` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `camera` varchar(4) NOT NULL,
+  `filename` varchar(30) NOT NULL,
+  `frame` varchar(30) NOT NULL,
+  `file_type` varchar(10) NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `event_time_stamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`event_number`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
