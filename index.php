@@ -1,120 +1,75 @@
 <?php
 
-	require_once('../preheader.php'); // <-- this include file MUST go first before any HTML/output
+    require_once('../preheader.php'); // <-- this include file MUST go first before any HTML/output
 
-	#the code for the class
-	include ('./ajaxcrud/ajaxCRUD.class.php'); // <-- this include file MUST go first before any HTML/output
-
-    #this one line of code is how you implement the class
-    ########################################################
-    ##
-
-    $tblDemo = new ajaxCRUD("Item", "contacts", "userid", "../");
-
-    ##
-    ########################################################
-
-    ## all that follows is setup configuration for your fields....
-    ## full API reference material for all functions can be found here - http://ajaxcrud.com/api/
-    ## note: many functions below are commented out (with //). note which ones are and which are not
-
-    #i can define a relationship to another table
-    #the 1st field is the fk in the table, the 2nd is the second table, the 3rd is the pk in the second table, the 4th is field i want to retrieve as the dropdown value
-    #http://ajaxcrud.com/api/index.php?id=defineRelationship
-    //$tblDemo->defineRelationship("fkID", "tblDemoRelationship", "pkID", "fldName", "fldSort DESC"); //use your own table - this table (tblDemoRelationship) not included in the installation script
-
-    #i don't want to visually show the primary key in the table
-    $tblDemo->omitPrimaryKey();
-
-    #the table fields have prefixes; i want to give the heading titles something more meaningful
-    $tblDemo->displayAs("name", "Name");
-    $tblDemo->displayAs("phone", "Phone");
-    $tblDemo->displayAs("phoneactive", "Phone active");
-    $tblDemo->displayAs("text", "Text");
-    $tblDemo->displayAs("textactive", "Text active");
-    $tblDemo->displayAs("email", "Email");
-    $tblDemo->displayAs("emailactive", "Email active");
-	#set the textarea height of the longer field (for editing/adding)
-    #http://ajaxcrud.com/api/index.php?id=setTextareaHeight
-   // $tblDemo->setTextareaHeight('fldLongField', 150);
-
-    #i could omit a field if I wanted
-    #http://ajaxcrud.com/api/index.php?id=omitField
-    //$tblDemo->omitField("fldField2");
-
-    #i could omit a field from being on the add form if I wanted
-    //$tblDemo->omitAddField("fldField2");
-
-    #i could disallow editing for certain, individual fields
-    //$tblDemo->disallowEdit('fldField2');
-
-    #i could set a field to accept file uploads (the filename is stored) if wanted
-    //$tblDemo->setFileUpload("fldField2", "uploads/");
-
-    #i can have a field automatically populate with a certain value (eg the current timestamp)
-    //$tblDemo->addValueOnInsert("fldField1", "NOW()");
-
-    #i can use a where field to better-filter my table
-    //$tblDemo->addWhereClause("WHERE (fldField1 = 'test'");
-
-    #i can order my table by whatever i want
-    $tblDemo->addOrderBy("ORDER BY name ASC");
-
-    #i can set certain fields to only allow certain values
-    #http://ajaxcrud.com/api/index.php?id=defineAllowableValues
-    $allowableValues = array("Allowable Value 1", "Allowable Value2", "Dropdown Value", "CRUD");
-    $tblDemo->defineAllowableValues("fldCertainFields", $allowableValues);
-
-    //set field fldCheckbox to be a checkbox
-    $tblDemo->defineCheckbox("phoneactive");
-    $tblDemo->defineCheckbox("textactive");
-    $tblDemo->defineCheckbox("emailactive");
-
-    #i can disallow deleting of rows from the table
-    #http://ajaxcrud.com/api/index.php?id=disallowDelete
-    //$tblDemo->disallowDelete();
-
-    #i can disallow adding rows to the table
-    #http://ajaxcrud.com/api/index.php?id=disallowAdd
-    //$tblDemo->disallowAdd();
-    //$tblDemo->setOrientation("vertical");
-    #i can add a button that performs some action deleting of rows for the entire table
-    #http://ajaxcrud.com/api/index.php?id=addButtonToRow
-    //$tblDemo->addButtonToRow("Add", "add_item.php", "all");
-
-    #set the number of rows to display (per page)
-    $tblDemo->setLimit(30);
-
-	#set a filter box at the top of the table
-    //$tblDemo->addAjaxFilterBox('fldField1');
-
-    #if really desired, a filter box can be used for all fields
-    //$tblDemo->addAjaxFilterBoxAllFields();
-
-    #i can set the size of the filter box
-    //$tblDemo->setAjaxFilterBoxSize('fldField1', 3);
-
-	#i can format the data in cells however I want with formatFieldWithFunction
-	#this is arguably one of the most important (visual) functions
-	//$tblDemo->formatFieldWithFunction('fldField1', 'makeBlue');
-	$tblDemo->formatFieldWithFunction('name', 'makeBold');
-
-	//$tblDemo->modifyFieldWithClass("fldField1", "zip required"); 	//for testing masked input functionality
-	//$tblDemo->modifyFieldWithClass("fldField2", "phone");			//for testing masked input functionality
-
-	//$tblDemo->onAddExecuteCallBackFunction("mycallbackfunction"); //uncomment this to try out an ADD ROW callback function
+    #the code for the class
+    include ('./ajaxcrud/ajaxCRUD.class.php'); // <-- this include file MUST go first before any HTML/output
 
 ?>
-		<div style="float: left">
-			<b></b><br />
-		</div>
-
-		<div style="clear:both;"></div>
+<img src="images/teta.jpg" alt="Teta" height="62" width="62" align="right">
+<div id='cssmenu'>
+<ul>  
+   <li><a href='?page=contacts'><span>Contacts</span></a></li>
+   <li><a href='?page=events'><span>Event log</span></a></li>
+   <li><a href='http://192.168.1.67:8000' target='_blank'><span>Cam view</span></a></li>
+   <li><a href='?page=admin'><span>Admin</span></a></li>   
+</ul>
+</div>
 
 <?
 
-	#actually show the table
-	$tblDemo->showTable();
+    $page=$_GET["page"];
+    if ($page == "contacts"){
+        $tblContacts = new ajaxCRUD("Item", "contacts", "userid", "../");
+
+        $tblContacts->omitPrimaryKey();
+
+        #Display field name mappings
+        $tblContacts->displayAs("name", "Name");
+        $tblContacts->displayAs("phone", "Phone");
+        $tblContacts->displayAs("phoneactive", "Phone active");
+        $tblContacts->displayAs("text", "Text");
+        $tblContacts->displayAs("textactive", "Text active");
+        $tblContacts->displayAs("email", "Email");
+        $tblContacts->displayAs("emailactive", "Email active");
+   
+        $tblContacts->addOrderBy("ORDER BY name ASC");
+        $tblContacts->setLimit(30);
+        $tblContacts->formatFieldWithFunction('name', 'makeBold');
+        //set field fldCheckbox to be a checkbox
+        $tblContacts->defineCheckbox("phoneactive");
+        $tblContacts->defineCheckbox("textactive");
+        $tblContacts->defineCheckbox("emailactive");
+
+        #show the table
+	$tblContacts->showTable();
+
+        } 
+	
+	elseif ($page == "events"){
+
+	$tblEvents = new ajaxCRUD("Item", "motion_log", "event_number", "../");
+
+        //$tblEvents->omitPrimaryKey();
+        $tblEvents->omitField("frame");
+	$tblEvents->omitField("event_time_stamp");
+	$tblEvents->omitField("file_type");
+
+        #Display field name mappings
+        $tblEvents->displayAs("event_number", "Event Number");
+        $tblEvents->displayAs("filename", "File created");
+        $tblEvents->displayAs("time_stamp", "Time Stamp");
+        $tblEvents->displayAs("camera", "Camera number");
+   
+        $tblEvents->addOrderBy("ORDER BY event_number DESC");
+        $tblEvents->setLimit(30);
+        $tblEvents->disallowDelete();
+        //$tblContacts->formatFieldWithFunction('name', 'makeBold');
+
+	#show the table
+	$tblEvents->showTable();
+
+	}
 
 	#my self-defined functions used for formatFieldWithFunction
 	function makeBold($val){
