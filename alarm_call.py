@@ -3,6 +3,10 @@
 import shutil
 import time
 import MySQLdb
+import base64
+import os.path
+import smtplib
+from datetime import datetime
 
 class AlarmCall:
 	def __init__(self):
@@ -25,19 +29,23 @@ class AlarmCall:
 		id = "%d" % row[1]
 		t=str(time.time())
 		self._write_call_file(phonenumber,id,t)
-	   
+
+	    #this is wacked, I need to only grab one row here. fixit 
 	    for row in acct_data:
-	        print("%s" % row[0])
-		use_id = "%s" % row[0]
-		passwd = "%s" % row[1]
-		t=str(time.time())
+	        #print("%s" % row[0])
+		self.usrname = "%s" % row[0]
+		self.password = "%s" % row[1]
 		#self._write_call_file(phonenumber,id,t)
 
             for row in email_data:
-	        print("%s" % row[0])
-		use_id = "%s" % row[0]
-		t=str(time.time())
-		#self._write_call_file(phonenumber,id,t)
+	        #print("%s" % row[0])
+		self.recipient = "%s" % row[0]
+		self.sender = "%s" % row[0]
+		self.subject = "Teta's on the move"
+		self.from_name = "Teta"
+		image_path = "/tmp/motion/06-201401022227.avi"
+		msg = "This is some text that needs to be replaced with something meaningful"
+		self._send_email(msg,image_path)
 
 
 	
@@ -70,12 +78,11 @@ class AlarmCall:
 
             server = smtplib.SMTP('smtp.gmail.com:587')
             server.starttls()
-            server.login(self.username, self.password)
+            server.login(self.usrname, self.password)
             # server.sendmail(self.sender, self.recipient, p1+p2+p3)
 	    # change made here to not attach file so this can be sent to sms
 	    server.sendmail(self.sender, self.recipient, p1+p2)
             server.quit()
-
 
 try:   
     AlarmCall()
