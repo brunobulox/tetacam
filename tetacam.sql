@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2014 at 02:11 PM
+-- Generation Time: Jan 02, 2014 at 10:42 PM
 -- Server version: 5.5.33
 -- PHP Version: 5.4.4-14+deb7u7
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `accounts` (
+  `active` tinyint(1) DEFAULT NULL,
   `name` varchar(35) NOT NULL,
   `id` varchar(35) NOT NULL,
   `pw` varchar(20) NOT NULL,
@@ -62,13 +63,13 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 CREATE TABLE IF NOT EXISTS `motion_log` (
   `event_number` mediumint(9) NOT NULL AUTO_INCREMENT,
   `camera` varchar(4) NOT NULL,
-  `filename` varchar(30) NOT NULL,
+  `filename` varchar(60) NOT NULL,
   `frame` varchar(30) NOT NULL,
   `file_type` varchar(10) NOT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `event_time_stamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`event_number`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
