@@ -19,11 +19,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `tetacam`
 --
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
+-- Table structure for table `tetacam.accounts`
 --
 
 CREATE TABLE IF NOT EXISTS `accounts` (
@@ -74,3 +73,9 @@ CREATE TABLE IF NOT EXISTS `motion_log` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+GRANT USAGE ON *.* TO 'teta'@'%' IDENTIFIED BY PASSWORD '*78AF5721BC00CB57F2B0986478281B3BA7C3EF72';
+
+GRANT ALL PRIVILEGES ON `tetacam`.* TO 'teta'@'%';
+
+
