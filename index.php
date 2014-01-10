@@ -6,7 +6,7 @@
     include ('./ajaxcrud/ajaxCRUD.class.php'); // <-- this include file MUST go first before any HTML/output
 
 ?>
-<img src="images/tetacam_logo.jpg" alt="Teta" height="62" width="62" align="right">
+<img src="images/tetacam_logo.jpg" alt="Teta" height="80" width="260" align="right">
 <div id='cssmenu'>
 <ul>  
    <li><a href='?page=contacts'><span>Contacts</span></a></li>
