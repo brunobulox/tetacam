@@ -5,6 +5,6 @@ start)
 sudo service  motion start
 ;;
 stop)
-sudo  pkill -9 motion
+sudo service motion stop
 ;;
 esac
